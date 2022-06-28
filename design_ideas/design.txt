@@ -1,7 +1,7 @@
 // Works like a turn in magic : the gathering
 
->> Standby phase (overhead(?)/input)
-variables can only be in the form of colours [B, G, U, R, W, gen] = [5, 4, 3, 2, 1, 0]
+>> Upkeep phase (overhead(?)/input(?))
+variables can only be in the form of colours [B, G, U, R, W, C] = [5, 4, 3, 2, 1, 0]
 >> Main phase 1 (do stuffs)
 >> Battle phase (output)
 >> Main phase 2 (do stuffs)

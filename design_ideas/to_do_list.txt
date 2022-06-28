@@ -9,7 +9,7 @@ outputted
 
 > Declare attacker
 
-> Memnite [Memnite] : https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=194078
+> Memnite [memnite] : https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=194078
 
 > Pass
 >> Go to next turn
