@@ -26,5 +26,3 @@ outputted
 *For now we input by tapping land during battle phase*
 *Later why don't we change it to be the land that have been tapped this turn*
 *idk if life will be implemented or not*
-
-Test
