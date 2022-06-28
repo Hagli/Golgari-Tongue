@@ -1,0 +1,28 @@
+Program these :
+
+> Play a land
+
+> Cast a spell
+
+> Each battle damage corresponds to 1 byte from the input (tapping the lands?) being
+outputted
+
+> Declare attacker
+
+> Memnite [Memnite] : https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=194078
+
+> Pass
+>> Go to next turn
+
+> Play land, each land colour corresponds to a number between 0-5
+[B, G, U, R, W, gen] = [5, 4, 3, 2, 1, 0]
+
+> I think they should be a "bit" each, but base 6
+>> i.e.
+>> I tap a swamp, island, and forest = input 534 -> 180+9+4 -> 193
+
+> Each turn can only play 1 land (duh)
+
+*For now we input by tapping land during battle phase*
+*Later why don't we change it to be the land that have been tapped this turn*
+*idk if life will be implemented or not*
