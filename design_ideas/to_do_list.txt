@@ -1,5 +1,7 @@
 Program these :
 
+> !*LEXER*!
+
 > Play a land
 
 > Cast a spell
