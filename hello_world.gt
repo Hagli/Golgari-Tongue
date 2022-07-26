@@ -1,18 +1,18 @@
-turn 1
+turn : 1
 u :
 m1 : play mountain; play memnite
 b :
 m2 :
 e : pass
 
-turn 2
+turn : 2
 u :
 m1 : play stripmine
 b :
 m2 :
 e : pass
 
-turn 3
+turn : 3
 u :
 m1 : play stripmine
 b : tap mountain, stripmine, stripmine; attack with 1 memnite
@@ -20,14 +20,14 @@ m2 :
 e : pass
 "This time, it is an 'H'" -Garruk
 
-turn 4
+turn : 4
 u :
 m1 : play forest
 b :
 m2 :
 e : pass
 
-turn 5
+turn : 5
 u :
 m1 : play swamp
 b : tap mountain, forest, swamp; attack with 1 memnite
@@ -35,7 +35,7 @@ m2 :
 e : pass
 "And this, is an 'e'" -Garruk
 
-turn 6
+turn : 6
 u :
 m1 : play island
 b : tap island, stripmine, stripmine; attack with 1 memnite
@@ -43,7 +43,7 @@ m2 :
 e : pass
 "An 'l'" -Garruk
 
-turn 7
+turn : 7
 u :
 m1 : play plains
 b : tap island, stripmine, stripmine; attack with 1 memnite
@@ -51,7 +51,7 @@ m2 :
 e : pass
 "Another 'l'...timewalk can make this easier" -Jace Beleren
 
-turn 8
+turn : 8
 u :
 m1 : play island
 b : tap island, stripmine, island; attack with 1 memnite
@@ -59,7 +59,7 @@ m2 :
 e : pass
 "An 'o'" -Garruk
 
-turn 9
+turn : 9
 u :
 m1 : play plains
 b : tap plains, plains, mountain; attack with 1 memnite
@@ -67,7 +67,7 @@ m2 :
 e : pass
 "A...coma?" -Garruk
 
-turn 10
+turn : 10
 u :
 m1 : play mountain
 b : tap stripmine, swamp, mountain; attack with 1 memnite
@@ -75,7 +75,7 @@ m2 :
 e : pass
 "A...nothing" -Garruk
 
-turn 11
+turn : 11
 u :
 m1 :
 b : tap mountain, mountain, island; attack with 1 memnite
@@ -83,35 +83,35 @@ m2 :
 e : pass
 "A capital 'w'" -Garruk
 
-turn 12
+turn : 12
 u :
 m1 :
 b : tap island, stripmine, island; attack with 1 memnite
 m2 :
 e : pass
 
-turn 13
+turn : 13
 u :
 m1 :
 b : tap island, plains, stripmine; attack with 1 memnite
 m2 :
 e : pass
 
-turn 14
+turn : 14
 u :
 m1 :
 b : tap island, stripmine, stripmine; attack with 1 memnite
 m2 :
 e : pass
 
-turn 15
+turn : 15
 u :
 m1 : play forest
 b : tap mountain, forest, forest; attack with 1 memnite
 m2 :
 e : pass
 
-turn 16
+turn : 16
 u :
 m1 :
 b : tap stripmine, swamp, island; attack with 1 memnite
