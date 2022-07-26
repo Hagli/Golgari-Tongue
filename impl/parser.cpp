@@ -7,12 +7,11 @@
 /// lexer and updates CurTok with its results.
 
 #include "../header/lexer.h"
-static int CurTok;
 static int getNextToken() {
     return CurTok = gettok();
 }
 
-#include "../header/AST.h"
+#include "../header/parser.h"
 /// LogError* - These are little helper functions for error handling.
 std::unique_ptr<ExprAST> LogError(const char *Str) {
     fprintf(stderr, "LogError: %s\n", Str);
@@ -48,7 +47,7 @@ static std::unique_ptr<ExprAST> ParseActionExpr() {
             auto arg = ParseNumberExpr();
             args.push_back(std::move(arg));
         }
-        else if(auto arg = ParseActionExpr()){
+        else if(auto arg = ParseIdentifierExpr()){
             args.push_back(std::move(arg));
         }
         else
