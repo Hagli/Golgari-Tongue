@@ -63,24 +63,3 @@ const int gettok() {
     LastChar = getchar();
     return ThisChar;
 }
-
-#include <iostream>
-int main(){
-    int y;
-    while(y!=tok_eof){
-        y = gettok();
-        std::cout<<y<<"\n";
-    }
-}
-
-/*
-int main ()
-{
-  int c;
-  puts ("Enter text. Include a dot ('.') in a sentence to exit:");
-  do {
-    c=getchar();
-    putchar (c);
-  } while (c != '.');
-  return 0;
-}*/
