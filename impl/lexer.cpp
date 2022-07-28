@@ -1,12 +1,13 @@
 //Taken from the tutorial at
 //https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
 #include "../header/lexer.h"
+#include "../header/token.h"
 
 //reminder to change this from global variable
 //static std::string IdentifierStr; Filled in if tok_identifier
 //static int NumVal;              Filled in if tok_number
 
-static int gettok() {
+const int gettok() {
     static int LastChar = ' ';
 
     while (isspace(LastChar)){
@@ -18,15 +19,20 @@ static int gettok() {
         while (isalnum((LastChar = getchar()))){
             IdentifierStr += LastChar;
         }
-    }
-
-    if (IdentifierStr == "turn")
-        return tok_turn;
-    else if ((IdentifierStr == "u") || (IdentifierStr == "m1") || (IdentifierStr == "b") || (IdentifierStr == "m2") || (IdentifierStr == "e")){
-        return tok_phase;
-    }
-    else if ((IdentifierStr == "play") || (IdentifierStr == "attack") || (IdentifierStr == "pass")){
-        return tok_action;
+        if (IdentifierStr == "turn")
+            return tok_turn;
+        else if ((IdentifierStr == "u") || (IdentifierStr == "m1") || (IdentifierStr == "b") || (IdentifierStr == "m2") || (IdentifierStr == "e")){
+            return tok_phase;
+        }
+        else if ((IdentifierStr == "play") || (IdentifierStr == "attack") || (IdentifierStr == "pass")){
+            return tok_action;
+        }
+        else if (IdentifierStr == "end"){
+           return tok_eof; //basically end of file that needs to be read heheh
+        }
+        else {
+            return tok_identifier;
+        }
     }
 
     //for now, there should be only integers in the program text code
@@ -53,11 +59,28 @@ static int gettok() {
         }
     }
 
-    if (LastChar == EOF){
-        return tok_eof;
-    }
-
     int ThisChar = LastChar;
     LastChar = getchar();
     return ThisChar;
 }
+
+#include <iostream>
+int main(){
+    int y;
+    while(y!=tok_eof){
+        y = gettok();
+        std::cout<<y<<"\n";
+    }
+}
+
+/*
+int main ()
+{
+  int c;
+  puts ("Enter text. Include a dot ('.') in a sentence to exit:");
+  do {
+    c=getchar();
+    putchar (c);
+  } while (c != '.');
+  return 0;
+}*/

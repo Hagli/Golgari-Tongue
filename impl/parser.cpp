@@ -1,17 +1,12 @@
-#include <cstdio>
-#include <memory>
-#include <vector>
-
 /// CurTok/getNextToken - Provide a simple token buffer.  CurTok is the current
 /// token the parser is looking at.  getNextToken reads another token from the
 /// lexer and updates CurTok with its results.
 
-#include "../header/lexer.h"
-static int getNextToken() {
+#include "../header/parser.h"
+const int getNextToken() {
     return CurTok = gettok();
 }
 
-#include "../header/parser.h"
 /// LogError* - These are little helper functions for error handling.
 std::unique_ptr<ExprAST> LogError(const char *Str) {
     fprintf(stderr, "LogError: %s\n", Str);
@@ -19,14 +14,14 @@ std::unique_ptr<ExprAST> LogError(const char *Str) {
 }
 
 /// numberexpr ::= number
-static std::unique_ptr<ExprAST> ParseNumberExpr() {
+std::unique_ptr<ExprAST> ParseNumberExpr() {
     auto Result = std::make_unique<NumberExprAST>(NumVal);
     getNextToken(); // consume the number
     return std::move(Result);
 }
 
 /// identifier ::= identifier;
-static std::unique_ptr<ExprAST> ParseIdentifierExpr() {
+std::unique_ptr<ExprAST> ParseIdentifierExpr() {
     std::string idName = IdentifierStr;
 
     getNextToken();
@@ -34,9 +29,10 @@ static std::unique_ptr<ExprAST> ParseIdentifierExpr() {
     return std::make_unique<IdentifierExprAST>(idName);
 }
 
+#include "../header/token.h"
 /// actionexpr ::= action
 /// actionexpr ::= action ((number)(identifier,))*(number)identifier(;)
-static std::unique_ptr<ExprAST> ParseActionExpr() {
+std::unique_ptr<ExprAST> ParseActionExpr() {
     std::string idName = IdentifierStr;
 
     getNextToken();
@@ -65,10 +61,10 @@ static std::unique_ptr<ExprAST> ParseActionExpr() {
     return std::make_unique<ActionExprAST>(idName, std::move(args));
 }
 
-/// turnexpr ::= turn number
-static std::unique_ptr<ExprAST> ParseTurnExpr() {
+/// turnexpr ::= turn : number
+std::unique_ptr<ExprAST> ParseTurnExpr() {
     getNextToken();
-    if(CurTok!=':')
+    if((CurTok!=tok_identifier) && (IdentifierStr!=":"))
         return LogError("Exprected a ':' after a turn declaration.");
     
     getNextToken();
@@ -80,13 +76,13 @@ static std::unique_ptr<ExprAST> ParseTurnExpr() {
     return std::move(Result);
 }
 
-/// phaseexpr ::= phase (action;)*action
-static std::unique_ptr<ExprAST> ParsePhaseExpr() {
+/// phaseexpr ::= phase : (action;)*action
+std::unique_ptr<ExprAST> ParsePhaseExpr() {
     std::string idName = IdentifierStr;
 
     getNextToken();
 
-    if (CurTok!=':')
+    if((CurTok!=tok_identifier) && (IdentifierStr!=':'))
         return LogError("Expected ':' after a phase expression.");
     
     getNextToken();
@@ -109,4 +105,12 @@ static std::unique_ptr<ExprAST> ParsePhaseExpr() {
     }
 
     return std::make_unique<PhaseExprAST>(idName, std::move(args));
+}
+
+#include <iostream>
+int main(){
+    while(CurTok!=tok_eof){
+        getNextToken();
+        std::cout<<CurTok<<'\n';
+    }
 }

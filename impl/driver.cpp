@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "../header/parser.h"
+#include "../header/token.h"
+#include "../header/driver.h"
 
 static void HandleTurn() {
   if (ParseTurnExpr()) {
@@ -46,14 +47,15 @@ static void HandleNumber() {
   }
 }
 
-#include "../header/lexer.h"
-
+#include <iostream>
 int main() {
-    while(1){
+  std::cout<<"Pain";
+  return 0;
+    /*while(1){
       fprintf(stderr, "ready> ");
       switch (CurTok) {
         case tok_eof:
-          return;
+          return 0;
         case tok_turn:
           HandleTurn();
           break;
@@ -70,5 +72,5 @@ int main() {
           HandleNumber();
           break;
       }
-    }
+    }*/
 }
