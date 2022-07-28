@@ -11,3 +11,9 @@ A function is a deck(?)
 
 All pregiven fucntion should be based off a magic card or
 gameplay action
+
+-------------------------------------------------------------------------------------
+Technical stuffs
+How to run it, for now :
+1. Compile lexer, parser, and driver into an executable
+2. Run the executable into with a gl file
