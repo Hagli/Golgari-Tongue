@@ -55,4 +55,3 @@ class BinaryExprAST : public ExprAST {
         BinaryExprAST(char operation, std::unique_ptr<ExprAST> left, std::unique_ptr<ExprAST> right) :
         op(operation), lhs(std::move(left)), rhs(std::move(right)) {}
 };
-
