@@ -10,14 +10,14 @@ const int getNextToken() {
 /// numberexpr ::= number
 std::unique_ptr<NumberExprAST> ParseNumberExpr() {
     auto Result = std::make_unique<NumberExprAST>(NumVal);
-    //getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
+    getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
     return std::move(Result);
 }
 
 /// identifier ::= identifier;
 std::unique_ptr<IdentifierExprAST> ParseIdentifierExpr() {
     std::string idName = IdentifierStr;
-    //getNextToken();
+    getNextToken();
     return std::make_unique<IdentifierExprAST>(idName);
 }
 

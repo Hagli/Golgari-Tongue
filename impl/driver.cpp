@@ -2,25 +2,17 @@
 #include "../header/token.h"
 #include "../header/driver.h"
 
+static void HandleNumber() {
+  if (ParseNumberExpr()) {
+    fprintf(stderr, "Parsed a number definition.\n");
+  } else {
+    // Skip token for error recovery.
+  }
+}
+
 static void HandleTurn() {
   if (ParseTurnExpr()) {
     fprintf(stderr, "Parsed a turn definition.\n");
-  } else {
-    // Skip token for error recovery.
-  }
-}
-
-static void HandlePhase() {
-  if (ParsePhaseExpr()) {
-    fprintf(stderr, "Parsed a phase definition.\n");
-  } else {
-    // Skip token for error recovery.
-  }
-}
-
-static void HandleAction() {
-  if (ParseActionExpr()) {
-    fprintf(stderr, "Parsed a action definition.\n");
   } else {
     // Skip token for error recovery.
   }
@@ -34,15 +26,22 @@ static void HandleIdentifier() {
   }
 }
 
-static void HandleNumber() {
-  if (ParseNumberExpr()) {
-    fprintf(stderr, "Parsed a number definition.\n");
+static void HandleAction() {
+  if (ParseActionExpr()) {
+    fprintf(stderr, "Parsed a action definition.\n");
   } else {
     // Skip token for error recovery.
   }
 }
 
-extern std::string IdentifierStr;
+static void HandlePhase() {
+  if (ParsePhaseExpr()) {
+    fprintf(stderr, "Parsed a phase definition.\n");
+  } else {
+    // Skip token for error recovery.
+  }
+}
+
 #include <iostream>
 int main() {
     while(1){
@@ -53,12 +52,14 @@ int main() {
           HandleTurn();
           break;
         case tok_phase:
-          std::cout<<IdentifierStr<<'\n';
           HandlePhase();
+          break;
         case tok_action:
           HandleAction();
+          break;
         case tok_number:
           HandleNumber();
+          break;
         case tok_identifier:
           HandleIdentifier();
           break;
