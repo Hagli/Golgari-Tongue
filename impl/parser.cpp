@@ -7,110 +7,62 @@ const int getNextToken() {
     return CurTok = gettok();
 }
 
-/// LogError* - These are little helper functions for error handling.
-std::unique_ptr<ExprAST> LogError(const char *Str) {
-    fprintf(stderr, "LogError: %s\n", Str);
-    return nullptr;
-}
-
 /// numberexpr ::= number
-std::unique_ptr<ExprAST> ParseNumberExpr() {
+std::unique_ptr<NumberExprAST> ParseNumberExpr() {
     auto Result = std::make_unique<NumberExprAST>(NumVal);
-    getNextToken(); // consume the number
+    getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
     return std::move(Result);
 }
 
 /// identifier ::= identifier;
-std::unique_ptr<ExprAST> ParseIdentifierExpr() {
+std::unique_ptr<IdentifierExprAST> ParseIdentifierExpr() {
     std::string idName = IdentifierStr;
-
     getNextToken();
-
     return std::make_unique<IdentifierExprAST>(idName);
 }
 
-#include "../header/token.h"
-/// actionexpr ::= action
-/// actionexpr ::= action ((number)(identifier,))*(number)identifier(;)
-std::unique_ptr<ExprAST> ParseActionExpr() {
+//#include "../header/token.h"
+/// actionexpr ::= action (number)identifier(;)
+std::unique_ptr<ActionExprAST> ParseActionExpr() {
     std::string idName = IdentifierStr;
-
     getNextToken();
-    
-    std::vector<std::unique_ptr<ExprAST>> args;
-    while(1) {
-        if(CurTok==tok_number){
-            auto arg = ParseNumberExpr();
-            args.push_back(std::move(arg));
-        }
-        else if(auto arg = ParseIdentifierExpr()){
-            args.push_back(std::move(arg));
-        }
-        else
-            return nullptr;
-        
-        if((CurTok==tok_phase) || (CurTok==';'))
-            break;
-        
-        if(CurTok!=',')
-            return LogError("Expected a newline, ';', or ',' instead.");
-        
-        getNextToken();
-    }
 
-    return std::make_unique<ActionExprAST>(idName, std::move(args));
+    std::unique_ptr<NumberExprAST> num = std::move(ParseNumberExpr());
+    std::unique_ptr<IdentifierExprAST> ident = std::move(ParseIdentifierExpr());
+
+    return std::make_unique<ActionExprAST>(idName, std::move(num), std::move(ident));
 }
 
 /// turnexpr ::= turn : number
-std::unique_ptr<ExprAST> ParseTurnExpr() {
+std::unique_ptr<TurnExprAST> ParseTurnExpr() {
     getNextToken();
-    if((CurTok!=tok_identifier) && (IdentifierStr!=":"))
+    /*if(CurTok!=':')
         return LogError("Exprected a ':' after a turn declaration.");
+    */
     
     getNextToken();
-    if(CurTok!=tok_number)
+    /*if(CurTok!=tok_number)
         return LogError("Expected turn number.");
+    */
     
     auto Result = std::make_unique<TurnExprAST>(NumVal);
     getNextToken(); // consume the number
     return std::move(Result);
 }
 
-/// phaseexpr ::= phase : (action;)*action
-std::unique_ptr<ExprAST> ParsePhaseExpr() {
+/// phaseexpr ::= phase : action
+std::unique_ptr<PhaseExprAST> ParsePhaseExpr() {
     std::string idName = IdentifierStr;
 
     getNextToken();
-
-    if((CurTok!=tok_identifier) && (IdentifierStr!=':'))
+    /*
+    if(CurTok!=':')
         return LogError("Expected ':' after a phase expression.");
+    */
     
     getNextToken();
 
-    std::vector<std::unique_ptr<ExprAST>> args;
-    while(1) {
-        if(auto arg = ParseActionExpr()){
-            args.push_back(std::move(arg));
-        }
-        else
-            return nullptr;
-        
-        if(CurTok==tok_phase) //newline
-            break;
-        
-        if(CurTok!=';')
-            return LogError("Expected a newline or ';' instead.");
-        
-        getNextToken();
-    }
+    std::unique_ptr<ActionExprAST> act = ParseActionExpr();
 
-    return std::make_unique<PhaseExprAST>(idName, std::move(args));
-}
-
-#include <iostream>
-int main(){
-    while(CurTok!=tok_eof){
-        getNextToken();
-        std::cout<<CurTok<<'\n';
-    }
+    return std::make_unique<PhaseExprAST>(idName, std::move(act));
 }
