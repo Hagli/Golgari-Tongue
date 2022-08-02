@@ -3,6 +3,6 @@
 
 int CurTok;
 
-extern int gettok();
+extern const int gettok();
 extern int NumVal;
 extern std::string IdentifierStr;
