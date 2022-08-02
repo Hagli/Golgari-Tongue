@@ -7,7 +7,6 @@ static void HandleTurn() {
     fprintf(stderr, "Parsed a turn definition.\n");
   } else {
     // Skip token for error recovery.
-    getNextToken();
   }
 }
 
@@ -16,7 +15,6 @@ static void HandlePhase() {
     fprintf(stderr, "Parsed a phase definition.\n");
   } else {
     // Skip token for error recovery.
-    getNextToken();
   }
 }
 
@@ -25,7 +23,6 @@ static void HandleAction() {
     fprintf(stderr, "Parsed a action definition.\n");
   } else {
     // Skip token for error recovery.
-    getNextToken();
   }
 }
 
@@ -34,7 +31,6 @@ static void HandleIdentifier() {
     fprintf(stderr, "Parsed a identifier definition.\n");
   } else {
     // Skip token for error recovery.
-    getNextToken();
   }
 }
 
@@ -43,34 +39,31 @@ static void HandleNumber() {
     fprintf(stderr, "Parsed a number definition.\n");
   } else {
     // Skip token for error recovery.
-    getNextToken();
   }
 }
 
+extern std::string IdentifierStr;
 #include <iostream>
 int main() {
-  std::cout<<"Pain";
-  return 0;
-    /*while(1){
+    while(1){
       fprintf(stderr, "ready> ");
+      getNextToken();
       switch (CurTok) {
-        case tok_eof:
-          return 0;
         case tok_turn:
           HandleTurn();
           break;
         case tok_phase:
+          std::cout<<IdentifierStr<<'\n';
           HandlePhase();
-          break;
         case tok_action:
           HandleAction();
-          break;
+        case tok_number:
+          HandleNumber();
         case tok_identifier:
           HandleIdentifier();
           break;
-        case tok_number:
-          HandleNumber();
-          break;
+        case tok_eof:
+          return 0;
       }
-    }*/
+    }
 }

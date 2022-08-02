@@ -35,7 +35,7 @@ class IdentifierExprAST : public ExprAST {
 };
 
 class ActionExprAST : public ExprAST {
-    std::string actionName; 
+    std::string actionName;
     std::unique_ptr<NumberExprAST> num;
     std::unique_ptr<IdentifierExprAST> ident;
 
