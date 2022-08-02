@@ -11,15 +11,8 @@ class NumberExprAST : public ExprAST {
     int num;
 
     public:
-        NumberExprAST(int number) : num(number) {}
-};
-
-class PhaseExprAST : public ExprAST {
-    std::string phaseName;
-    std::vector<std::unique_ptr<ExprAST>> args;
-
-    public:
-        PhaseExprAST(std::string &name, std::vector<std::unique_ptr<ExprAST>> arguments) : phaseName(name), args(std::move(arguments)) {}
+        NumberExprAST(int number) : num(number) {};
+        int getNum() {return num;};
 };
 
 class TurnExprAST : public ExprAST {
@@ -27,14 +20,7 @@ class TurnExprAST : public ExprAST {
 
     public:
         TurnExprAST(int number) : num(number) {}
-};
-
-class ActionExprAST : public ExprAST {
-    std::string actionName;
-    std::vector<std::unique_ptr<ExprAST>> args;
-
-    public:
-        ActionExprAST(std::string &name, std::vector<std::unique_ptr<ExprAST>> arguments) : actionName(name), args(std::move(arguments)) {}
+        int getTurn() {return num;};
 };
 
 class IdentifierExprAST : public ExprAST {
@@ -44,9 +30,32 @@ class IdentifierExprAST : public ExprAST {
     //reminder = Identifier/Object -> spells and lands
 
     public:
-        IdentifierExprAST(std::string &name) : identifierName(name) {}
+        IdentifierExprAST(std::string &name) : identifierName(name) {};
+        std::string getIdent() {return identifierName;};
 };
 
+class ActionExprAST : public ExprAST {
+    std::string actionName; 
+    std::unique_ptr<NumberExprAST> num;
+    std::unique_ptr<IdentifierExprAST> ident;
+
+    public:
+        ActionExprAST(std::string &name, std::unique_ptr<NumberExprAST> number, std::unique_ptr<IdentifierExprAST> identifier) : actionName(name), num(std::move(number)), ident(std::move(identifier))  {}
+        std::string getActName() {return actionName;};
+        std::unique_ptr<NumberExprAST> getNum() {return std::move(num);};
+        std::unique_ptr<IdentifierExprAST> getIdent() {return std::move(ident);};
+};
+
+class PhaseExprAST : public ExprAST {
+    std::string phaseName;
+    std::unique_ptr<ActionExprAST> act;
+
+    public:
+        PhaseExprAST(std::string &name, std::unique_ptr<ActionExprAST> action) : phaseName(name), act(std::move(action)) {}
+        std::unique_ptr<ActionExprAST> getAction() {return std::move(act);};
+};
+
+/////////////////////////////////
 class BinaryExprAST : public ExprAST {
     char op;
     std::unique_ptr<ExprAST> lhs, rhs;
