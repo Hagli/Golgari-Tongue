@@ -1,5 +1,5 @@
+#include <string>
 #include "token.h"
-#include "AST.h"
 
 const int getNumVal();
 const std::string getIdentifierStr();

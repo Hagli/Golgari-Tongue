@@ -1,4 +1,5 @@
 #include <cstdio>
+#include "AST.h"
 #include "lexer.h"
 
 const int getNextToken();
