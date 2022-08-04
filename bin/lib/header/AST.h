@@ -23,27 +23,27 @@ class TurnExprAST : public ExprAST {
         int getTurn() {return num;};
 };
 
-class IdentifierExprAST : public ExprAST {
+class PermanentExprAST : public ExprAST {
     std::string identifierName; 
-    //for now it will just be a string later make every Identifier you can call
+    //for now it will just be a string later make every Permanent you can call
     //is an actual object in the 'library' of the language
-    //reminder = Identifier/Object -> spells and lands
+    //reminder = Permanent/Object -> spells and lands
 
     public:
-        IdentifierExprAST(std::string &name) : identifierName(name) {};
+        PermanentExprAST(std::string &name) : identifierName(name) {};
         std::string getIdent() {return identifierName;};
 };
 
 class ActionExprAST : public ExprAST {
     std::string actionName;
     std::unique_ptr<NumberExprAST> num;
-    std::unique_ptr<IdentifierExprAST> ident;
+    std::unique_ptr<PermanentExprAST> ident;
 
     public:
-        ActionExprAST(std::string &name, std::unique_ptr<NumberExprAST> number, std::unique_ptr<IdentifierExprAST> identifier) : actionName(name), num(std::move(number)), ident(std::move(identifier))  {}
+        ActionExprAST(std::string &name, std::unique_ptr<NumberExprAST> number, std::unique_ptr<PermanentExprAST> identifier) : actionName(name), num(std::move(number)), ident(std::move(identifier))  {}
         std::string getActName() {return actionName;};
         std::unique_ptr<NumberExprAST> getNum() {return std::move(num);};
-        std::unique_ptr<IdentifierExprAST> getIdent() {return std::move(ident);};
+        std::unique_ptr<PermanentExprAST> getIdent() {return std::move(ident);};
 };
 
 class PhaseExprAST : public ExprAST {

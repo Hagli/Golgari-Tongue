@@ -41,7 +41,7 @@ const int gettok() {
            return tok_eof; //basically end of file that needs to be read heheh
         }
         else {
-            return tok_identifier;
+            return tok_permanent;
         }
     }
 

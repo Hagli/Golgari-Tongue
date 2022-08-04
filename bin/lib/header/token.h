@@ -11,6 +11,6 @@ enum Token {
     tok_action = -4,
 
     //primary
-    tok_identifier = -5, //objects ("spells/lands")
+    tok_permanent = -5, //objects ("spells/lands")
     tok_number = -6,
 };

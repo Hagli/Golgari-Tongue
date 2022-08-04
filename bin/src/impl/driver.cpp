@@ -1,8 +1,11 @@
 #include "../header/driver.h"
 
+int globalNum = 0;
 static void HandleNumber() {
   if (ParseNumberExpr()) {
     fprintf(stderr, "Parsed a number definition.\n");
+    std::unique_ptr<NumberExprAST> dum = ParseNumberExpr();
+    fprintf(stderr, "%d\n", dum->getNum());
   } else {
     // Skip token for error recovery.
   }
@@ -11,14 +14,15 @@ static void HandleNumber() {
 static void HandleTurn() {
   if (ParseTurnExpr()) {
     fprintf(stderr, "Parsed a turn definition.\n");
+    globalNum = 0;
   } else {
     // Skip token for error recovery.
   }
 }
 
-static void HandleIdentifier() {
-  if (ParseIdentifierExpr()) {
-    fprintf(stderr, "Parsed a identifier definition.\n");
+static void HandlePermanent() {
+  if (ParsePermanentExpr()) {
+    fprintf(stderr, "Parsed a permanent definition.\n");
   } else {
     // Skip token for error recovery.
   }
@@ -27,6 +31,7 @@ static void HandleIdentifier() {
 static void HandleAction() {
   if (ParseActionExpr()) {
     fprintf(stderr, "Parsed a action definition.\n");
+
   } else {
     // Skip token for error recovery.
   }
@@ -40,7 +45,6 @@ static void HandlePhase() {
   }
 }
 
-#include <iostream>
 int main() {
     while(1){
       fprintf(stderr, "ready> ");
@@ -58,8 +62,8 @@ int main() {
         case tok_number:
           HandleNumber();
           break;
-        case tok_identifier:
-          HandleIdentifier();
+        case tok_permanent:
+          HandlePermanent();
           break;
         case tok_eof:
           return 0;

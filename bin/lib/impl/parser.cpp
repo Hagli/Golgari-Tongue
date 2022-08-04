@@ -16,15 +16,15 @@ const int getCurTok() {
 /// numberexpr ::= number
 std::unique_ptr<NumberExprAST> ParseNumberExpr() {
     auto Result = std::make_unique<NumberExprAST>(getNumVal());
-    getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
+    //getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
     return std::move(Result);
 }
 
 /// identifier ::= identifier;
-std::unique_ptr<IdentifierExprAST> ParseIdentifierExpr() {
+std::unique_ptr<PermanentExprAST> ParsePermanentExpr() {
     std::string idName = getIdentifierStr();
     getNextToken();
-    return std::make_unique<IdentifierExprAST>(idName);
+    return std::make_unique<PermanentExprAST>(idName);
 }
 
 //#include "../header/token.h"
@@ -34,7 +34,7 @@ std::unique_ptr<ActionExprAST> ParseActionExpr() {
     getNextToken();
 
     std::unique_ptr<NumberExprAST> num = std::move(ParseNumberExpr());
-    std::unique_ptr<IdentifierExprAST> ident = std::move(ParseIdentifierExpr());
+    std::unique_ptr<PermanentExprAST> ident = std::move(ParsePermanentExpr());
 
     return std::make_unique<ActionExprAST>(idName, std::move(num), std::move(ident));
 }
