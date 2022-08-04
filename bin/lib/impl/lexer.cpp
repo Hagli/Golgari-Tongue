@@ -1,11 +1,21 @@
 //Taken from the tutorial at
 //https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
-#include "../header/lexer.h"
-#include "../header/token.h"
+#include "../../src/header/lexer.h"
 
 //reminder to change this from global variable
 //static std::string IdentifierStr; Filled in if tok_identifier
 //static int NumVal;              Filled in if tok_number
+
+int NumVal;
+std::string IdentifierStr;
+
+const int getNumVal() {
+    return NumVal;
+}
+
+const std::string getIdentifierStr() {
+    return IdentifierStr;
+}
 
 const int gettok() {
     static int LastChar = ' ';

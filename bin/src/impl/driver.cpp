@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include "../header/token.h"
 #include "../header/driver.h"
 
 static void HandleNumber() {
@@ -47,7 +45,7 @@ int main() {
     while(1){
       fprintf(stderr, "ready> ");
       getNextToken();
-      switch (CurTok) {
+      switch (getCurTok()) {
         case tok_turn:
           HandleTurn();
           break;

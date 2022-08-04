@@ -1,22 +1,28 @@
 /// CurTok/getNextToken - Provide a simple token buffer.  CurTok is the current
 /// token the parser is looking at.  getNextToken reads another token from the
 /// lexer and updates CurTok with its results.
+#include "../../src/header/parser.h"
 
-#include "../header/parser.h"
+int CurTok;
+
 const int getNextToken() {
     return CurTok = gettok();
 }
 
+const int getCurTok() {
+    return CurTok;
+}
+
 /// numberexpr ::= number
 std::unique_ptr<NumberExprAST> ParseNumberExpr() {
-    auto Result = std::make_unique<NumberExprAST>(NumVal);
+    auto Result = std::make_unique<NumberExprAST>(getNumVal());
     getNextToken(); // consume the number, usage kinda weird, do not foghetti zis part
     return std::move(Result);
 }
 
 /// identifier ::= identifier;
 std::unique_ptr<IdentifierExprAST> ParseIdentifierExpr() {
-    std::string idName = IdentifierStr;
+    std::string idName = getIdentifierStr();
     getNextToken();
     return std::make_unique<IdentifierExprAST>(idName);
 }
@@ -24,7 +30,7 @@ std::unique_ptr<IdentifierExprAST> ParseIdentifierExpr() {
 //#include "../header/token.h"
 /// actionexpr ::= action (number)identifier(;)
 std::unique_ptr<ActionExprAST> ParseActionExpr() {
-    std::string idName = IdentifierStr;
+    std::string idName = getIdentifierStr();
     getNextToken();
 
     std::unique_ptr<NumberExprAST> num = std::move(ParseNumberExpr());
@@ -45,14 +51,14 @@ std::unique_ptr<TurnExprAST> ParseTurnExpr() {
         return LogError("Expected turn number.");
     */
     
-    auto Result = std::make_unique<TurnExprAST>(NumVal);
+    auto Result = std::make_unique<TurnExprAST>(getNumVal());
     //getNextToken(); // consume the number
     return std::move(Result);
 }
 
 /// phaseexpr ::= phase : action
 std::unique_ptr<PhaseExprAST> ParsePhaseExpr() {
-    std::string idName = IdentifierStr;
+    std::string idName = getIdentifierStr();
 
     getNextToken();
     /*
