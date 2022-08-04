@@ -1,6 +1,6 @@
 //Taken from the tutorial at
 //https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
-#include "../../src/header/lexer.h"
+#include "../header/lexer.h"
 
 //reminder to change this from global variable
 //static std::string IdentifierStr; Filled in if tok_identifier
