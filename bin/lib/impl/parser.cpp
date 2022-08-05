@@ -34,6 +34,8 @@ std::unique_ptr<ActionExprAST> ParseActionExpr() {
     getNextToken();
 
     std::unique_ptr<NumberExprAST> num = std::move(ParseNumberExpr());
+    getNextToken();
+
     std::unique_ptr<PermanentExprAST> ident = std::move(ParsePermanentExpr());
 
     return std::make_unique<ActionExprAST>(idName, std::move(num), std::move(ident));
@@ -61,12 +63,14 @@ std::unique_ptr<PhaseExprAST> ParsePhaseExpr() {
     std::string idName = getIdentifierStr();
 
     getNextToken();
+    fprintf(stdout, "%s\n", getIdentifierStr().c_str());
     /*
     if(CurTok!=':')
         return LogError("Expected ':' after a phase expression.");
     */
     
     getNextToken();
+    fprintf(stdout, "%s\n", getIdentifierStr().c_str());
 
     std::unique_ptr<ActionExprAST> act = ParseActionExpr();
 

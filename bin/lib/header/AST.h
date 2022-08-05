@@ -52,6 +52,7 @@ class PhaseExprAST : public ExprAST {
 
     public:
         PhaseExprAST(std::string &name, std::unique_ptr<ActionExprAST> action) : phaseName(name), act(std::move(action)) {}
+        std::string getPhaseName() {return phaseName;};
         std::unique_ptr<ActionExprAST> getAction() {return std::move(act);};
 };
 

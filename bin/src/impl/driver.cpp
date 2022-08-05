@@ -21,25 +21,30 @@ static void HandleTurn() {
 }
 
 static void HandlePermanent() {
-  if (ParsePermanentExpr()) {
+  if (auto dum = ParsePermanentExpr()) {
     fprintf(stdout, "Parsed a permanent definition.\n");
+    fprintf(stdout, "It's %s.\n", dum->getIdent().c_str());
   } else {
     // Skip token for error recovery.
   }
 }
 
 static void HandleAction() {
-  if (ParseActionExpr()) {
+  if (auto dum = ParseActionExpr()) {
     fprintf(stdout, "Parsed a action definition.\n");
-
+    fprintf(stdout, "Action is %s.\n", dum->getActName().c_str());
+    fprintf(stdout, "With %d %s(s).\n", dum->getNum()->getNum(), dum->getIdent()->getIdent().c_str());
   } else {
     // Skip token for error recovery.
   }
 }
 
 static void HandlePhase() {
-  if (ParsePhaseExpr()) {
+  if (auto dum = ParsePhaseExpr()) {
     fprintf(stdout, "Parsed a phase definition.\n");
+    fprintf(stdout, "Phase is %s.\n", dum->getPhaseName().c_str());
+    auto dam = dum->getAction();
+    fprintf(stdout, "With %d %s(s).\n", dam->getNum()->getNum(), dam->getIdent()->getIdent().c_str());
   } else {
     // Skip token for error recovery.
   }
